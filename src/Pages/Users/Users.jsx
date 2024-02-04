@@ -105,13 +105,13 @@ const Users = () => {
 
         {/* Select Tag with Value "date" */}
         <div>
-          <span>Sort by Date</span>
+          
           {"    "}
           <button
             className="btn"
             onClick={() => document.getElementById("my_modal_4").showModal()}
           >
-            Date
+            <span>Sort by Date</span>
           </button>
         </div>
       </div>

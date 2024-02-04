@@ -4,19 +4,23 @@ const api = {
   key:'d8f4c983d940040113adad1849931a1f',
   base:'https://api.openweathermap.org/data/2.5/'
 }
-const Banner = ({setWeather,search, setSearch}) => {
-
+// {setWeather,search, setSearch}
+const Banner = () => {
+  const [weather, setWeather] = useState([]);
+  const [search, setSearch] = useState('');
+  const [open, setOpen] = useState(false)
   
 
   const searchProcess = () => {
     fetch(`${api.base}weather?q=${search}&units=metric&APPID=${api.key}`)
     .then(res => res.json())
     .then(data => setWeather(data))
+    setOpen(true);
   }
     
   return (
-    <div>
-      <div className="bg-blue-500 text-white py-8">
+    <div className="bg-blue-500 h-full lg:flex px-5 items-center justify-around">
+      <div className=" text-white py-8">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl font-bold mb-4">Welcome to Our Website</h1>
           <p className="text-lg mb-8">
@@ -36,6 +40,25 @@ const Banner = ({setWeather,search, setSearch}) => {
             </button>
           </div>
         </div>
+      </div>
+      <div>
+      {open == true ? (
+        <div className="text-white pb-10 lg:pb-0">
+          <h2 className="text-3xl text-center">
+            Location: <span className="font-bold">{weather?.name}</span>
+          </h2>
+          <h2 className="text-3xl text-center ">
+            Current Weather: <span className="font-bold">{weather?.main?.temp} &deg;C</span>
+          </h2>
+          {weather?.weather?.map((item, index) => (
+            <h2 key={index} className="text-center text-3xl">
+              Weather: <span className="font-bold">{item.description}</span>
+            </h2>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
       </div>
     </div>
   );
